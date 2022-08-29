@@ -25,6 +25,7 @@ public class User {
     private boolean isLogged;
     private boolean isAdmin;
     private boolean isTest;
+    private String picture;
 
     public void setName(String name) {
         this.name = name;
@@ -92,5 +93,13 @@ public class User {
 
     public boolean isTest() {
         return isTest;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
