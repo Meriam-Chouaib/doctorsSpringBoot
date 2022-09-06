@@ -41,4 +41,9 @@ public class UserController {
 
         return new ResponseEntity<User>( userService.updateUser(id,userDetails), HttpStatus.OK);
     }
-}
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id) throws ResourceNotFoundException {
+        return new ResponseEntity<User>( userService.deleteById(id), HttpStatus.OK);
+
+    }

@@ -21,21 +21,24 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-@Table(name="post")
+@Table(name="article")
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class Post {
+public class Article {
+
+    @Column(name="id_article")
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int _id;
+    private int id;
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -45,22 +48,38 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }
+    @Column(name="title_article")
 
     private String title;
+
+    @Column(name="message_article")
+
     private String message;
 
+    @Column(name="date_article")
 
     private Date date;
+
+    @Column(name="picture_article")
     private String picture;
 
 
+    @Column(name="liked_article")
+
     private boolean liked;
+
+    @Column(name="disliked_article")
+
     private boolean disliked;
+    @Column(name="likes_article")
+
     private int likes;
+
+    @Column(name="dislikes_article")
     private int dislikes;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "_id", referencedColumnName = "_id", insertable = false, updatable = false)
+    @JoinColumn(name = "id_article", referencedColumnName = "id_article", insertable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;

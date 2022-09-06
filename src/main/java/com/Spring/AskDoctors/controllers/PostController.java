@@ -1,9 +1,9 @@
 package com.Spring.AskDoctors.controllers;
 
 import com.Spring.AskDoctors.Exception.ResourceNotFoundException;
-import com.Spring.AskDoctors.entity.Post;
+import com.Spring.AskDoctors.entity.Article;
 import com.Spring.AskDoctors.entity.User;
-import com.Spring.AskDoctors.services.PostService;
+import com.Spring.AskDoctors.services.ArticleService;
 import com.Spring.AskDoctors.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 @RestController
-@RequestMapping("/api/posts/")
-public class PostController {
+@RequestMapping("/api/articles/")
+public class ArticleController {
 
   @Autowired
- private PostService postService;
+ private ArticleService articleService;
 
     @PostMapping("save")
-    public ResponseEntity<Post> savePost(@RequestBody Post post) {
-        return new ResponseEntity<Post>(postService.savePost(post), HttpStatus.CREATED);
+    public ResponseEntity<Article> saveArticle(@RequestBody Article article) {
+        return new ResponseEntity<Article>(articleService.saveArticle(article), HttpStatus.CREATED);
     }
 
    @GetMapping("list")
-   public ResponseEntity<List<Post>> getAll() {
-       return new ResponseEntity<List<Post>>(postService.getAll(), HttpStatus.OK);
+   public ResponseEntity<List<Article>> getAll() {
+       return new ResponseEntity<List<Article>>(articleService.getAll(), HttpStatus.OK);
    }
 //
 //
@@ -42,4 +42,5 @@ public class PostController {
 //
 //        return new ResponseEntity<User>( userService.updateUser(id,userDetails), HttpStatus.OK);
 //    }
+
 }

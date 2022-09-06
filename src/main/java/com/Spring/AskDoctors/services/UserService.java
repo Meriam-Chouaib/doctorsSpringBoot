@@ -23,6 +23,8 @@ public class UserService {
 //        this.userRepo = userRepo;
 //    }
 
+    private static List<User> users=new ArrayList<>();
+
     public User saveUser(User user) {
         return userRepo.save(user);
     }
@@ -34,7 +36,7 @@ public class UserService {
 
     public User getUser(int id) {
         User user = userRepo.findAll().stream()
-                .filter(t -> id==(t.get_id()))
+                .filter(t -> id==(t.getId()))
                 .findFirst()
                 .orElse(null);
         return user;
@@ -53,5 +55,10 @@ public class UserService {
 
         final User updatedUser = saveUser(user);
         return updatedUser;
+    }
+
+    public void deleteById(int id)throws
+            ResourceNotFoundException {
+        userRepo.deleteById(id);
     }
 }

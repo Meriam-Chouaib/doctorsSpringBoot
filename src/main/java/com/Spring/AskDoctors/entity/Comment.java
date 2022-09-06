@@ -16,20 +16,16 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class Comment {
-
+    @Column(name="id_comment")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int _id;
+    private int id;
 
-    public int get_id() {
-        return _id;
-    }
 
-    public void set_id(int _id) {
-        this._id = _id;
-    }
-
+    @Column(name="subject_comment")
     private String subject;
+
+    @Column(name="date_comment")
     private Date date;
 
     public String getSubject() {
@@ -48,19 +44,26 @@ public class Comment {
         this.date = date;
     }
 
-    public Post getPost() {
-        return post;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "_id", referencedColumnName = "_id", insertable = false, updatable = false)
+    @JoinColumn(name = "id_comment", referencedColumnName = "id_comment", insertable = false, updatable = false)
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Post post;
+    private Article article;
 
 }

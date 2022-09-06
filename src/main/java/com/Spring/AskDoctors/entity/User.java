@@ -13,18 +13,38 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User {
 
+    @Column(name="id_user")
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int _id;
+    private int id;
 
+    @Column(name="name_user")
     private String name;
+
+    @Column(name="username_user")
     private String username;
+
+    @Column(name="password_user")
+
     private String password;
+
+    @Column(name="speciality_user")
+
     private String speciality;
+    @Column(name="description_user")
+
     private String description;
+
+    @Column(name="isLogged_user")
     private boolean isLogged;
+    @Column(name="isAdmin_user")
+
     private boolean isAdmin;
+
+    @Column(name="isTest_user")
     private boolean isTest;
+    @Column(name="picture_user")
     private String picture;
 
     public void setName(String name) {
@@ -59,8 +79,8 @@ public class User {
         isTest = test;
     }
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
