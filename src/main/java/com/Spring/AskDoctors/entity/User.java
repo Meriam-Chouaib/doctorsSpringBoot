@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
+
 @Table(name="user")
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@Entity
 public class User {
 
     @Column(name="id_user")
@@ -37,13 +38,13 @@ public class User {
     private String description;
 
     @Column(name="isLogged_user")
-    private boolean isLogged;
+    private Boolean isLogged;
     @Column(name="isAdmin_user")
 
-    private boolean isAdmin;
+    private Boolean isAdmin;
 
     @Column(name="isTest_user")
-    private boolean isTest;
+    private Boolean isTest;
     @Column(name="picture_user")
     private String picture;
 
@@ -67,15 +68,15 @@ public class User {
         this.description = description;
     }
 
-    public void setLogged(boolean logged) {
+    public void setLogged(Boolean logged) {
         isLogged = logged;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         isAdmin = admin;
     }
 
-    public void setTest(boolean test) {
+    public void setTest(Boolean test) {
         isTest = test;
     }
 
@@ -103,15 +104,15 @@ public class User {
         return description;
     }
 
-    public boolean isLogged() {
+    public Boolean isLogged() {
         return isLogged;
     }
 
-    public boolean isAdmin() {
+    public Boolean isAdmin() {
         return isAdmin;
     }
 
-    public boolean isTest() {
+    public Boolean isTest() {
         return isTest;
     }
 

@@ -10,11 +10,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name="comment")
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@Table(name="comment")
+@Entity
+
 public class Comment {
     @Column(name="id_comment")
     @Id
@@ -44,26 +45,26 @@ public class Comment {
         this.date = date;
     }
 
-    public Article getArticle() {
+ 
+    public int getId() {
+        return id;
+    }
+
+
+
+  /*
+       public Article getArticle() {
         return article;
     }
 
     public void setArticle(Article article) {
         this.article = article;
     }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_comment", referencedColumnName = "id_comment", insertable = false, updatable = false)
+    @JoinColumn(name = "id_comment", referencedColumnName = "id_article", insertable = false, updatable = false)
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Article article;
+    public Article article;*/
 
 }

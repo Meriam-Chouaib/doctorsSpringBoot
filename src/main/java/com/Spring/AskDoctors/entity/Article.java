@@ -20,11 +20,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
-@Table(name="article")
+
+
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@Table(name="article")
+@Entity
 public class Article {
 
     @Column(name="id_article")
@@ -37,17 +39,8 @@ public class Article {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
     @Column(name="title_article")
 
     private String title;
@@ -66,11 +59,11 @@ public class Article {
 
     @Column(name="liked_article")
 
-    private boolean liked;
+    private Boolean liked;
 
     @Column(name="disliked_article")
 
-    private boolean disliked;
+    private Boolean disliked;
     @Column(name="likes_article")
 
     private int likes;
@@ -78,16 +71,25 @@ public class Article {
     @Column(name="dislikes_article")
     private int dislikes;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_article", referencedColumnName = "id_article", insertable = false, updatable = false)
+   /* @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_article", referencedColumnName = "id_user", insertable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private User user;
+    public User user;
 
+ 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    */
     public String getTitle() {
         return title;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -116,19 +118,19 @@ public class Article {
         this.picture = picture;
     }
 
-    public boolean isLiked() {
+    public Boolean isLiked() {
         return liked;
     }
 
-    public void setLiked(boolean liked) {
+    public void setLiked(Boolean liked) {
         this.liked = liked;
     }
 
-    public boolean isDisliked() {
+    public Boolean isDisliked() {
         return disliked;
     }
 
-    public void setDisliked(boolean disliked) {
+    public void setDisliked(Boolean disliked) {
         this.disliked = disliked;
     }
 

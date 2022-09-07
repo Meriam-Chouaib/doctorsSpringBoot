@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,7 @@ public class UserService {
     private static List<User> users=new ArrayList<>();
 
     public User saveUser(User user) {
+    	user.setAdmin(false);
         return userRepo.save(user);
     }
     
@@ -57,8 +60,7 @@ public class UserService {
         return updatedUser;
     }
 
-    public void deleteById(int id)throws
-            ResourceNotFoundException {
+    public void deleteById(int id){
         userRepo.deleteById(id);
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users/")
 public class UserController {
+	
     @Autowired
     private UserService userService;
 
@@ -29,21 +30,36 @@ public class UserController {
     }
 
 
-@GetMapping("{id}")
+    @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
-     return new ResponseEntity<User>(userService.getUser(id), HttpStatus.OK);
+        return new ResponseEntity<User>(userService.getUser(id), HttpStatus.OK);
 
     }
 
     @PutMapping("{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id,
-                                                   @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
+                                           @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
 
-        return new ResponseEntity<User>( userService.updateUser(id,userDetails), HttpStatus.OK);
+        return new ResponseEntity<User>(userService.updateUser(id, userDetails), HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id) throws ResourceNotFoundException {
-        return new ResponseEntity<User>( userService.deleteById(id), HttpStatus.OK);
+    @GetMapping("delete/{id}")
+    public void deleteUser(@PathVariable("id") int id) {
+       // User user = userService.getUser(id);
+                //.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userService.deleteById(id);
+    }
+//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+//    public void deleteById(@PathVariable(value = "id") int id) {
+////        try{
+//            userService.deleteById(id);
+//
+////        }
+////        catch(e){
+////            System.out.println(e);
+////        }
+//    }
 
     }
+
+
