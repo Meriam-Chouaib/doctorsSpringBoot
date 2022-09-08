@@ -3,6 +3,7 @@ package com.Spring.AskDoctors.controllers;
 import com.Spring.AskDoctors.Exception.ApiRequestException;
 import com.Spring.AskDoctors.Exception.ResourceNotFoundException;
 import com.Spring.AskDoctors.entity.Article;
+import com.Spring.AskDoctors.helper.ApiResponse;
 import com.Spring.AskDoctors.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,67 +19,39 @@ public class ArticleController {
   @Autowired
  private ArticleService articleService;
 
+ //**** Add Article ****/
+
     @PostMapping("save")
-    public ResponseEntity<Article> saveArticle(@RequestBody Article article) {
-       
-        if(article.getMessage()==null || article.getTitle()==null ){
-            throw new ApiRequestException("Enter the values please!");
-        } 
-        else
-       return new ResponseEntity<Article>(articleService.saveArticle(article), HttpStatus.CREATED);
-    
+    public ApiResponse saveArticle(@RequestBody Article article) { 
+       return articleService.saveArticle(article);
     }
-
+ /**** get all Articles ****/
    @GetMapping("list")
-   public ResponseEntity<List<Article>> getAll() {
-    if(articleService.getAll()==null){
-        throw new ApiRequestException("oops cannot get all articles!");
-    }
-    else if (articleService.getAll().isEmpty()){
-        throw new ApiRequestException("The list is empty!");
-
-    }
-    else{
-        return new ResponseEntity<List<Article>>(articleService.getAll(), HttpStatus.OK);
-    }
-    
-
+   public ApiResponse getAll() {
+        return articleService.getAll();
    }
 
+    /**** Delete Article ****/
+   @GetMapping("delete/{id}")
+   public ApiResponse deleteArticle(@PathVariable("id") int id) {
+      return articleService.deleteById(id);
+   }
+
+   /***** Get article by id ******/
+
     @GetMapping("{id}")
-    public ResponseEntity<Article> getArticleById(@PathVariable int id) {
-        if(articleService.getArticle(id)==null){
-            throw new ApiRequestException("There is no user with this id!");
-
-        }
-        else return new ResponseEntity<Article>(articleService.getArticle(id), HttpStatus.OK);
-
+    public ApiResponse getArticleById(@PathVariable int id) {
+       return articleService.getArticle(id);
     }
 
+    /****** Update Article *****/
     @PutMapping("update/{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable(value = "id") int id,
+    public ApiResponse updateArticle(@PathVariable(value = "id") int id,
                                            @Valid @RequestBody Article articleDetails) throws ResourceNotFoundException {
-
-        if(articleDetails.getMessage()==null || articleDetails.getTitle()==null ){
-            throw new ApiRequestException("Enter the values please!");
-        } else if(articleService.getArticle(id) == null){
-            throw new ApiRequestException("This user not found in the list!");
-        }
-
-        else return new ResponseEntity<Article>( articleService.updateArticle(id,articleDetails), HttpStatus.OK);
+        return articleService.updateArticle(id,articleDetails);
+      
     }
 
-    @GetMapping("delete/{id}")
-    public ResponseEntity<List<Article>> deleteArticle(@PathVariable("id") int id) {
-        Article article = articleService.getArticle(id);
-        if(article == null){
-            throw new ApiRequestException("This user not found in the list!");
-        }
 
-        else {articleService.deleteById(id);
-            return new ResponseEntity<List<Article>>(articleService.getAll(), HttpStatus.OK);
-        }
-         
-    }
 
 }
