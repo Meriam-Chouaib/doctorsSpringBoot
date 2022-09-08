@@ -45,12 +45,9 @@ public class UserService {
         return user;
     }
 
-    public User updateUser(int id, User userDetails) throws
-            ResourceNotFoundException {
+    public User updateUser(int id, User userDetails) throws ResourceNotFoundException {
 
             User user = getUser(id);
-
-
         user.setName(userDetails.getName());
         user.setUsername(userDetails.getUsername());
         user.setDescription(userDetails.getDescription());
@@ -60,7 +57,12 @@ public class UserService {
         return updatedUser;
     }
 
-    public void deleteById(int id){
-        userRepo.deleteById(id);
+    public void deleteById(int id) throws ResourceNotFoundException{
+
+    userRepo.deleteById(id);
+
+
+
+
     }
 }

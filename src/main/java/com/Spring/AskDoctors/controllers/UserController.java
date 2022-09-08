@@ -45,20 +45,13 @@ public class UserController {
 
     @GetMapping("delete/{id}")
     public void deleteUser(@PathVariable("id") int id) {
-       // User user = userService.getUser(id);
-                //.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userService.deleteById(id);
+
+            User user = userService.getUser(id);
+            userService.deleteById(id);
+
+
     }
-//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-//    public void deleteById(@PathVariable(value = "id") int id) {
-////        try{
-//            userService.deleteById(id);
-//
-////        }
-////        catch(e){
-////            System.out.println(e);
-////        }
-//    }
+
 
     }
 
