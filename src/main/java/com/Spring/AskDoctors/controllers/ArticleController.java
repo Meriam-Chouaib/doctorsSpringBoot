@@ -3,12 +3,16 @@ package com.Spring.AskDoctors.controllers;
 import com.Spring.AskDoctors.Exception.ApiRequestException;
 import com.Spring.AskDoctors.Exception.ResourceNotFoundException;
 import com.Spring.AskDoctors.entity.Article;
+import com.Spring.AskDoctors.entity.Comment;
 import com.Spring.AskDoctors.helper.ApiResponse;
 import com.Spring.AskDoctors.services.ArticleService;
+import com.Spring.AskDoctors.services.CommentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,6 +22,7 @@ public class ArticleController {
 
   @Autowired
  private ArticleService articleService;
+ private CommentService commentService;
 
  //**** Add Article ****/
 
@@ -52,6 +57,25 @@ public class ArticleController {
       
     }
 
+    /*******Add comment to article */
 
+  /*  @PostMapping("addComment/{idUser}/{idArticle}")
+    public Comment AddCommentToArticle(@Valid @RequestBody String subject_comment,@PathVariable("idArticle") int idArticle, @PathVariable("idUser") int idUser) { 
+     
+      return articleService.AddCommentToArticle(idArticle,idUser , subject_comment);
+      
+   }*/
 
+//    public ApiResponse saveArticle(@Valid @RequestBody String subject_comment,@PathVariable("idArticle") int idArticle, @PathVariable("idUser") int idUser) {
+//
+//        return articleService.AddCommentToArticle(idArticle,idUser , subject_comment);
+//
+//    }
+
+@PostMapping("{idUser}/getArticleCommented/{idArticle}")
+public List<Comment> AddComm(@PathVariable("idArticle") int idArticle,@PathVariable("idUser") int idUser,@Valid @RequestBody String subject) { 
+     
+   return articleService.AddCommentToArticle(idArticle,idUser,subject);
+   
+}
 }

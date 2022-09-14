@@ -61,7 +61,11 @@ public class UserController {
 
 
     }
-
+    
+    @GetMapping("hello")
+    public String getHello() {
+        return userService.getHello();
+    }
 
 }
 

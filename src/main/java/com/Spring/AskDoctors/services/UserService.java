@@ -4,10 +4,15 @@ import com.Spring.AskDoctors.Exception.ResourceNotFoundException;
 import com.Spring.AskDoctors.entity.User;
 import com.Spring.AskDoctors.helper.ApiResponse;
 import com.Spring.AskDoctors.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @RequiredArgsConstructor 
+//@Service @RequiredArgsConstructor @Transactional @Slf4j
+
 public class UserService {
 
     @Autowired
@@ -84,7 +91,7 @@ public class UserService {
             return new ApiResponse(HttpStatus.OK.value(), saveUser(user).getData(), null, "The user number "+id+" updated successfully :D");
         }
     }
-    
+
      /*****************  delete user ***************/
 
     public ApiResponse deleteById(int id) throws ResourceNotFoundException {
@@ -101,5 +108,8 @@ public class UserService {
       
 
 
+    }
+    public String getHello(){
+        return "Hello";
     }
 }

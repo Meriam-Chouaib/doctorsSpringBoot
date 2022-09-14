@@ -10,6 +10,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +29,7 @@ import javax.persistence.OneToMany;
 @NoArgsConstructor
 @Table(name="article")
 @Entity
-public class Article {
+public class Article implements Serializable{
 
     @Column(name="id_article")
 
@@ -71,10 +73,25 @@ public class Article {
     @Column(name="dislikes_article")
     private int dislikes;
 
-   /* @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_article", referencedColumnName = "id_user", insertable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonIgnore*/
+
+    @ManyToOne
+    //(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    //@JoinColumn(name = "id_user", referencedColumnName = "id_user", nullable = false)
     public User user;
 
  
@@ -82,10 +99,7 @@ public class Article {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-    */
+
     public String getTitle() {
         return title;
     }
@@ -149,4 +163,6 @@ public class Article {
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
     }
+
+
 }

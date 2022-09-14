@@ -1,9 +1,11 @@
 package com.Spring.AskDoctors.services;
 
 import com.Spring.AskDoctors.entity.Article;
+import com.Spring.AskDoctors.entity.Comment;
 import com.Spring.AskDoctors.entity.User;
 import com.Spring.AskDoctors.helper.ApiResponse;
 import com.Spring.AskDoctors.repository.ArticleRepository;
+import com.Spring.AskDoctors.repository.CommentRepository;
 import com.Spring.AskDoctors.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,14 +14,17 @@ import org.springframework.stereotype.Service;
 import com.Spring.AskDoctors.Exception.ApiRequestException;
 import com.Spring.AskDoctors.Exception.ResourceNotFoundException;
 
-
+import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
+
 
 @Service
 public class ArticleService {
     @Autowired
     private ArticleRepository articleRepo;
-
+    private UserService userService;
+    private CommentRepository commentRepo;
     /*********  Add article  **********/
 
     public ApiResponse saveArticle(Article article) {
@@ -95,5 +100,60 @@ public class ArticleService {
 
     }
 
+//    public  Article AddCommentToArticle(int idArticle,int idUser,String subject_comment){
+//        Article article = (Article) this.getArticle(idArticle).getData();
+//        //List<Comment> comments = article.getComments();
+//
+//        Comment comment = new Comment();
+//        comment.setId_user(idUser);
+//        comment.setSubject(subject_comment);
+//        comment.setId_article(idArticle);
+//
+//       // comments.add(comment);
+//      //  article.setComments(comments);
+//
+//        return article;
+////        if(user == null){
+////            return new ApiResponse(HttpStatus.FOUND.value(), user, 1, "user is null!");
+////
+////        }
+////        if (article != null) {
+////           List<Comment> comments = article.getComments();
+////            comments.add(comment);
+////            article.setComments(comments);
+////            return new ApiResponse(HttpStatus.OK.value(),article,null,"the comment added successfully!");
+////        }else
+////        return new ApiResponse(HttpStatus.FOUND.value(), this.getAll().getData(), 1, "Failed to add comment the article");
+//
+//}
+    public  List<Comment> AddCommentToArticle(int idArticle,int idUser,String subject){
+        Article article = (Article) this.getArticle(idArticle).getData();
+        List<Comment> comments = article.getComments();
+
+        Comment comment = new Comment();
+        comment.setId_user(idUser);
+      
+        comment.setId_article(idArticle);
+        comment.setSubject(subject);
+        LocalDate date =  LocalDate.now();
+        comment.setDate(date);
+        comments.add(comment);
+        article.setComments(comments);
+       // this.commentRepo.save(comment);
+
+        return article.getComments();
+//        if(user == null){
+//            return new ApiResponse(HttpStatus.FOUND.value(), user, 1, "user is null!");
+//
+//        }
+//        if (article != null) {
+//           List<Comment> comments = article.getComments();
+//            comments.add(comment);
+//            article.setComments(comments);
+//            return new ApiResponse(HttpStatus.OK.value(),article,null,"the comment added successfully!");
+//        }else
+//        return new ApiResponse(HttpStatus.FOUND.value(), this.getAll().getData(), 1, "Failed to add comment the article");
+
+    }
 
 }
