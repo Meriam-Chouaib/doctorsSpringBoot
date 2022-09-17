@@ -86,6 +86,9 @@ public class Article {
         this.user = user;
     }
     */
+    
+
+
     public String getTitle() {
         return title;
     }
@@ -148,5 +151,20 @@ public class Article {
 
     public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name="id_user", nullable=false)
+    private User user;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

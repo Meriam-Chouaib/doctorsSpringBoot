@@ -64,6 +64,28 @@ public class UserService {
         
     }
 
+
+            /*****************  AuthUser ***************/
+
+
+            public String authUser(String username) {
+            
+                  User user = userRepo.findAll().stream()
+                  .filter(t -> username == (t.getUsername()))
+                  .findFirst()
+                  .orElse(null);
+                        return username +"from list" +user.getUsername();
+                        
+                       // if (user != null) {
+                        //    return user;
+
+                          //  return new ApiResponse(HttpStatus.OK.value(), user, null, "the username "+username+" is connected!");
+
+                       // } else return new ApiResponse(HttpStatus.BAD_REQUEST.value(), null, 1, "There is no user with this id!");
+
+                //    } else return null;
+
+            }
         /*****************  Update user ***************/
 
 
@@ -101,5 +123,25 @@ public class UserService {
       
 
 
+    }
+
+ 
+    public ApiResponse getAllDoctors () throws Exception {
+        List<User> doctors = new ArrayList<>();
+
+     
+     for (User user : userRepo.findAll()) {
+       if(user.getSpeciality()!=null){
+        doctors.add(user);
+       }
+    }
+     
+        if (!doctors.isEmpty())
+            return new ApiResponse(HttpStatus.OK.value(), doctors, null, "List of Doctors success!");
+
+        else {
+
+            return new ApiResponse(HttpStatus.BAD_REQUEST.value(), null, 1, "oops cannot get the users!");
+        }
     }
 }

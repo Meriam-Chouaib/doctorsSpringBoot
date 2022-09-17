@@ -62,7 +62,25 @@ public class UserController {
 
     }
 
+       
 
+    /*******************Auth user **************/
+
+    @RequestMapping("auth/{username}")
+    //public User AuthUser(@RequestBody String username, @RequestBody String password) {
+
+        public String AuthUser( @PathVariable("username") String username) {
+            return userService.authUser(username);
+    }
+
+
+
+    /********************get List of doctors*************** 
+     * @throws Exception*/
+    @GetMapping("doctors")
+    public ApiResponse getAllDoctors() throws Exception {
+        return userService.getAllDoctors();
+    }
 }
 
 

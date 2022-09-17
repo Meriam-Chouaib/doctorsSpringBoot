@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class User {
 
     @Column(name="id_user")
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

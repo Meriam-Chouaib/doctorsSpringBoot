@@ -8,6 +8,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -27,7 +30,7 @@ public class Comment {
     private String subject;
 
     @Column(name="date_comment")
-    private Date date;
+    private LocalDate date;
 
     public String getSubject() {
         return subject;
@@ -37,11 +40,11 @@ public class Comment {
         this.subject = subject;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -50,9 +53,44 @@ public class Comment {
         return id;
     }
 
+   /*  @ManyToOne(
+        fetch = FetchType.LAZY
+)
+ @JoinColumn(name = "id_article", nullable = false)
+    private int id_article;
+@ManyToOne(targetEntity = Article.class)
+private Integer id_article;*/
 
+@ManyToOne
+@JoinColumn(name="id_article", nullable=false)
+private Article article;
+   
 
-  /*
+    /*public Integer getId_article() {
+        return id_article;
+    }
+
+    public void setId_article(Integer id_article) {
+        this.id_article = id_article;
+    }*/
+
+   /* @ManyToOne(
+        fetch = FetchType.LAZY
+)
+    @JoinColumn(name = "id_user", nullable = false)
+    private int id_user;*/
+
+    @ManyToOne(targetEntity = User.class)
+    private User user;
+
+    /*public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }*/
+/*
        public Article getArticle() {
         return article;
     }

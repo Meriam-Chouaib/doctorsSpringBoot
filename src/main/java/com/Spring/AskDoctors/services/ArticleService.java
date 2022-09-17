@@ -17,6 +17,7 @@ import java.util.List;
 
 @Service
 public class ArticleService {
+    
     @Autowired
     private ArticleRepository articleRepo;
 
@@ -28,7 +29,7 @@ public class ArticleService {
             //throw new ApiRequestException("Enter the values please!!");
             return new ApiResponse(HttpStatus.OK.value(),"", 1, "Enter the values please!!");
 
-        }
+        } else 
         return new ApiResponse(HttpStatus.OK.value(), articleRepo.save(article), null, "Article Added successfully!!");
 
     }
