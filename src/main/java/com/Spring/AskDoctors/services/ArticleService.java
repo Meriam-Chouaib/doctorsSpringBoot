@@ -4,7 +4,6 @@ import com.Spring.AskDoctors.entity.Article;
 import com.Spring.AskDoctors.entity.User;
 import com.Spring.AskDoctors.helper.ApiResponse;
 import com.Spring.AskDoctors.repository.ArticleRepository;
-import com.Spring.AskDoctors.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

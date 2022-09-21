@@ -4,14 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+import java.util.HashSet;
+
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import com.Spring.AskDoctors.springJWT.models.Role;
 
 
-@Table(name="user")
+//@Table(name="user")
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+
 @Entity
+@Table(name = "users", 
+    uniqueConstraints = { 
+      @UniqueConstraint(columnNames = "username"),
+      @UniqueConstraint(columnNames = "name") 
+    })
 public class User {
 
     @Column(name="id_user")
@@ -19,14 +32,30 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "user_roles", 
+          joinColumns = @JoinColumn(name = "id_user"), 
+          inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+     
+  
+    public User(String username, String name, String password) {
+      this.username = username;
+      this.name = name;
+      this.password = password;
+    }
+
     @Column(name="name_user")
     private String name;
 
+    @NotBlank
     @Column(name="username_user")
     private String username;
 
     @Column(name="password_user")
-
+    @NotBlank
     private String password;
 
     @Column(name="speciality_user")
@@ -122,4 +151,12 @@ public class User {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+      }
+    
+      public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+      }
 }

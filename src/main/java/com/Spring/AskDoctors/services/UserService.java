@@ -1,9 +1,10 @@
 package com.Spring.AskDoctors.services;
 
 import com.Spring.AskDoctors.Exception.ResourceNotFoundException;
-import com.Spring.AskDoctors.entity.User;
 import com.Spring.AskDoctors.helper.ApiResponse;
-import com.Spring.AskDoctors.repository.UserRepository;
+import com.Spring.AskDoctors.springJWT.models.User;
+import com.Spring.AskDoctors.springJWT.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class UserService {
         /*****************  get user by id ***************/
 
 
-    public ApiResponse getUser(int id) {
+    public ApiResponse getUser(Long id) {
         User user = userRepo.findAll().stream()
                 .filter(t -> id == (t.getId()))
                 .findFirst()
@@ -89,7 +90,7 @@ public class UserService {
         /*****************  Update user ***************/
 
 
-    public ApiResponse updateUser(int id, User userDetails) throws ResourceNotFoundException {
+    public ApiResponse updateUser(Long id, User userDetails) throws ResourceNotFoundException {
 
         User user = (User)getUser(id).getData();
   
@@ -109,7 +110,7 @@ public class UserService {
     
      /*****************  delete user ***************/
 
-    public ApiResponse deleteById(int id) throws ResourceNotFoundException {
+    public ApiResponse deleteById(Long id) throws ResourceNotFoundException {
 
         User user = (User) this.getUser(id).getData();
         if (user != null) {
